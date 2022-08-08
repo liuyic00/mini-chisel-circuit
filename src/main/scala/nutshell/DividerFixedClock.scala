@@ -34,11 +34,10 @@ class DividerFixedClock(len: Int = 64) extends Module {
   when(newReq) {
     state := s_log2
   }.elsewhen(state === s_log2) {
-    val canSkipShift = 0.U
-    cnt.value := Mux(divBy0, 0.U, Mux(canSkipShift >= (len - 1).U, (len - 1).U, canSkipShift))
+    cnt.value := 0.U
     state     := s_shift
   }.elsewhen(state === s_shift) {
-    shiftReg := aValx2Reg << cnt.value
+    shiftReg := aValx2Reg
     state    := s_compute
   }.elsewhen(state === s_compute) {
     val enough = hi.asUInt >= bReg.asUInt
