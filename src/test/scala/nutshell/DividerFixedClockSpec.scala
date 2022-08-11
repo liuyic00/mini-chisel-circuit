@@ -16,6 +16,14 @@ class DividerFixedClockSpec extends AnyFlatSpec with ChiselScalatestTester {
       c.io.out.valid.expect(true.B)
       c.io.out.bits.expect("h00000000_00000000_00000000_00000005".U)
     }
+    test(new DividerFixedClock(2)) { c =>
+      c.io.in.valid.poke(true.B)
+      c.io.in.bits(0).poke(3.U)
+      c.io.in.bits(1).poke(1.U)
+      c.clock.step(5)
+      c.io.out.valid.expect(true.B)
+      c.io.out.bits.expect("b0011".U)
+    }
   }
   it should "could emit low-firrtl" in {
     (new chisel3.stage.ChiselStage)
