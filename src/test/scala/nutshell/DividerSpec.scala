@@ -11,4 +11,8 @@ class DividerSpec extends AnyFlatSpec with ChiselScalatestTester {
     (new chisel3.stage.ChiselStage)
       .emitFirrtl(new Divider(64), Array("-E", "low", "--target-dir", "test_run_dir/" + getTestName))
   }
+  it should "could emit btor2" in {
+    (new chisel3.stage.ChiselStage)
+      .emitFirrtl(new Divider(64), Array("-E", "btor2", "--target-dir", "test_run_dir/" + getTestName))
+  }
 }
